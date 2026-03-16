@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  jenkins:
+    image: jenkins/jenkins:latest
+    container_name: jenkins-playwright
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /usr/bin/docker:/usr/bin/docker
+    environment:
+      - JENKINS_OPTS=--argumentsRealm.passwd.jenkins=${JENKINS_PASSWORD:-admin123} --argumentsRealm.roles.jenkins=admin
+      - JAVA_OPTS=-Xmx1024m -Xms512m
+      - TZ=UTC
+    networks:
+      - jenkins-network
+
+  maven-agent:
+    image: maven:3-jdk-11
+    container_name: maven-build-agent
+    depends_on:
+      - jenkins
+    environment:
+      - JENKINS_URL=http://jenkins:8080
+      - JENKINS_AGENT_NAME=maven-agent
+      - JENKINS_AGENT_WORKDIR=/home/jenkins/agent
+    volumes:
+      - maven_cache:/root/.m2
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - jenkins-network
+    command: echo "Maven environment ready"
+
+volumes:
+  jenkins_home:
+  maven_cache:
+
+networks:
+  jenkins-network:
+    driver: bridge
+
+# Docker Compose Usage:
+# 1. Start Jenkins: docker-compose up -d
+# 2. Get initial password: docker-compose exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword
+# 3. Access Jenkins: http://localhost:8080
+# 4. Stop: docker-compose down
+# 5. Clean up: docker-compose down -v

@@ -1,0 +1,46 @@
+# Maven
+target/
+.m2/
+*.jar
+*.war
+*.ear
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+*.iml
+
+# Gradle
+.gradle/
+build/
+
+# Jenkins
+jenkins_home/
+.jenkinsrc
+
+# Test Reports
+*.xml
+test-results/
+
+# Build output
+bin/
+dist/
+out/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.local
+
+# Node modules (if using node-based tools)
+node_modules/
+
+# Playwright
+.playwright-browsers/
