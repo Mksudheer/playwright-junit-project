@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Playwright JUnit Project with CI/CD Integration
 
 A comprehensive Playwright Java automation testing framework with JUnit 5, Maven, and integrated Jenkins/GitHub Actions CI/CD pipelines.
@@ -237,3 +238,7 @@ For issues or questions:
 ---
 
 **Happy Testing! 🎭**
+=======
+# playwright-junit-project
+Creating Playwright Automation Project Using Page Object Design Pattern, J Unit Framework
+>>>>>>> b68a7dcce1209190de6f4c25fedbd8cc55624c76
